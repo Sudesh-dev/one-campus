@@ -18,11 +18,11 @@ const SidebarLayout = () => {
 
   return (
     <div className="flex h-screen bg-gray-50 flex-col lg:flex-row overflow-hidden">
-      
+
       {/* Mobile & Tablet Top Bar (Hidden on Laptop) */}
       <div className="lg:hidden bg-blue-800 text-white p-4 flex justify-between items-center shadow-md z-40">
         <div className="flex items-center">
-          <button 
+          <button
             onClick={() => setIsSidebarOpen(true)}
             className="text-white hover:text-blue-200 focus:outline-none"
           >
@@ -36,9 +36,9 @@ const SidebarLayout = () => {
             One Campus
           </Link>
         </div>
-        
+
         {/* The Bell Icon for Mobile */}
-        <button 
+        <button
           onClick={() => { navigate('/notices'); setIsSidebarOpen(false); }}
           className="text-white hover:text-blue-200 focus:outline-none"
         >
@@ -50,7 +50,7 @@ const SidebarLayout = () => {
 
       {/* Dark Overlay for Mobile */}
       {isSidebarOpen && (
-        <div 
+        <div
           className="fixed inset-0 bg-black bg-opacity-50 z-40 lg:hidden"
           onClick={() => setIsSidebarOpen(false)}
         ></div>
@@ -62,7 +62,7 @@ const SidebarLayout = () => {
         transform transition-transform duration-300 ease-in-out lg:static lg:translate-x-0
         ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full'}
       `}>
-        
+
         <div>
           {/* Sidebar Header (Laptop View) */}
           <div className="p-6 hidden lg:flex justify-between items-center">
@@ -70,9 +70,9 @@ const SidebarLayout = () => {
             <Link to="/dashboard" className="text-2xl font-extrabold tracking-wider hover:text-blue-200 transition">
               One Campus
             </Link>
-            
+
             {/* The Bell Icon for Laptop */}
-            <button 
+            <button
               onClick={() => navigate('/notices')}
               className="text-white hover:text-blue-200 focus:outline-none"
               title="Noticeboard"
@@ -91,7 +91,7 @@ const SidebarLayout = () => {
               </svg>
             </button>
           </div>
-          
+
           <nav className="mt-2 px-4 space-y-2">
             <Link to="/dashboard" onClick={handleLinkClick} className={`block px-4 py-3 rounded-lg font-medium transition-colors ${isActive('/dashboard')}`}>
               Dashboard
@@ -102,6 +102,9 @@ const SidebarLayout = () => {
             <Link to="/attendance" onClick={handleLinkClick} className={`block px-4 py-3 rounded-lg font-medium transition-colors ${isActive('/attendance')}`}>
               Attendance
             </Link>
+            <Link to="/marks" onClick={handleLinkClick} className={`block px-4 py-3 rounded-lg font-medium transition-colors ${isActive('/marks')}`}>
+              Marks & Results
+            </Link>
             <Link to="/letters" onClick={handleLinkClick} className={`block px-4 py-3 rounded-lg font-medium transition-colors ${isActive('/letters')}`}>
               Letter Generator
             </Link>
@@ -109,7 +112,7 @@ const SidebarLayout = () => {
         </div>
 
         <div className="p-4 border-t border-blue-700">
-          <button 
+          <button
             onClick={handleLogout}
             className="w-full bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded-lg transition-colors"
           >
@@ -121,7 +124,7 @@ const SidebarLayout = () => {
       {/* Main Content Area */}
       <div className="flex-1 overflow-y-auto w-full">
         <div className="p-4 md:p-8">
-            <Outlet /> 
+          <Outlet />
         </div>
       </div>
 

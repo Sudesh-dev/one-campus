@@ -6,6 +6,7 @@ import Notices from './pages/Notices';
 import SidebarLayout from './components/SidebarLayout';
 import Attendance from './pages/Attendance';
 import Letters from './pages/Letters';
+import Marks from './pages/Marks';
 
 function App() {
   return (
@@ -38,7 +39,9 @@ function App() {
           <Route path="/notices" element={<Notices />} />
           <Route path="/attendance" element={<Attendance />} />
           <Route path="/letters" element={<Letters />} />
+          <Route path="/marks" element={<Marks />} />
         </Route>
+        
 
       </Routes>
     </BrowserRouter>
