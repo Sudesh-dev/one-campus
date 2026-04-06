@@ -7,41 +7,26 @@ import SidebarLayout from './components/SidebarLayout';
 import Attendance from './pages/Attendance';
 import Letters from './pages/Letters';
 import Marks from './pages/Marks';
+import Profile from './pages/Profile';
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
-        {/* The Login Page is entirely separate */}
+
+        {/* Public route — no sidebar */}
         <Route path="/" element={<Login />} />
 
-        {/* Everything inside SidebarLayout will have the sidebar next to it */}
+        {/* All authenticated pages share ONE SidebarLayout */}
+        {/* BUG FIX: Original had 4 duplicate SidebarLayout blocks and /profile outside layout */}
         <Route element={<SidebarLayout />}>
-
-          {/* Dashboard is nested inside the Layout */}
-          <Route path="/dashboard" element={<Dashboard />} />
-
-        </Route>
-
-        <Route element={<SidebarLayout />}>
-          <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/notices" element={<Notices />} />
-        </Route>
-
-        <Route element={<SidebarLayout />}>
-          <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/notices" element={<Notices />} />
+          <Route path="/dashboard"  element={<Dashboard />}  />
+          <Route path="/notices"    element={<Notices />}    />
           <Route path="/attendance" element={<Attendance />} />
+          <Route path="/marks"      element={<Marks />}      />
+          <Route path="/letters"    element={<Letters />}    />
+          <Route path="/profile"    element={<Profile />}    />
         </Route>
-
-        <Route element={<SidebarLayout />}>
-          <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/notices" element={<Notices />} />
-          <Route path="/attendance" element={<Attendance />} />
-          <Route path="/letters" element={<Letters />} />
-          <Route path="/marks" element={<Marks />} />
-        </Route>
-        
 
       </Routes>
     </BrowserRouter>
