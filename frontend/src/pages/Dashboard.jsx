@@ -79,7 +79,7 @@ const Dashboard = () => {
           {/* Live date/time pill */}
           <div className="bg-white/10 backdrop-blur-sm border border-white/20 px-6 py-4 rounded-xl
                           flex flex-col items-start md:items-end shrink-0">
-            <p className="text-xs font-bold text-blue-300 uppercase tracking-widest mb-1">Current Time</p>
+            
             <p className="text-sm font-semibold text-blue-100">{formattedDate}</p>
             <p className="text-2xl font-black font-mono tabular-nums text-white mt-0.5">{formattedTime}</p>
           </div>
