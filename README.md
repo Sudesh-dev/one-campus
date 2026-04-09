@@ -66,7 +66,7 @@ one-campus/
 
 ### Setup
 
-From the repository root:
+From the repository root, install dependencies in the frontend app:
 
 ```bash
 cd frontend
@@ -74,6 +74,8 @@ npm install
 ```
 
 ### Run Locally
+
+Start the Vite dev server from the frontend directory:
 
 ```bash
 cd frontend
@@ -136,4 +138,4 @@ Run these from the `frontend` directory:
 
 ## Notes
 
-The existing `frontend/README.md` is the generated Vite template and can be updated later with module-specific frontend documentation.
+The app is intentionally frontend-only right now. All post-login data and flows are mocked locally until backend integration is added.

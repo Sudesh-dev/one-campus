@@ -82,7 +82,7 @@ const Login = () => {
         </div>
 
         <p className="relative z-10 text-blue-300 text-xs">
-          Affiliated to Visvesvaraya Technological University (VTU) · 2022 Scheme
+          Affiliated to Visvesvaraya Technological University (VTU)
         </p>
       </div>
 
