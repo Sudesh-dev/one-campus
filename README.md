@@ -10,12 +10,17 @@ One Campus is a frontend prototype for a student portal focused on day-to-day ac
 
 ## Overview
 
-The current app provides two main screens:
+The current app provides a login screen and a multi-page student portal after sign-in.
 
 - Login/Register screen at `/`
 - Student dashboard at `/dashboard`
+- Smart noticeboard at `/notices`
+- Attendance analytics at `/attendance`
+- Marks and results at `/marks`
+- Letter generator at `/letters`
+- Student profile at `/profile`
 
-After sign-in, the dashboard presents a quick academic snapshot such as attendance, next class, and recent notices.
+All post-login routes are rendered inside a shared sidebar layout with mobile and desktop navigation.
 
 ## Tech Stack
 
@@ -36,11 +41,20 @@ one-campus/
 	├─ vite.config.js
 	├─ public/
 	└─ src/
+		├─ components/
+		│	└─ SidebarLayout.jsx
 		├─ App.jsx
+		├─ App.css
+		├─ index.css
 		├─ main.jsx
 		└─ pages/
 			├─ Login.jsx
-			└─ Dashboard.jsx
+			├─ Dashboard.jsx
+			├─ Notices.jsx
+			├─ Attendance.jsx
+			├─ Marks.jsx
+			├─ Letters.jsx
+			└─ Profile.jsx
 ```
 
 ## Getting Started
@@ -52,7 +66,7 @@ one-campus/
 
 ### Setup
 
-From the repository root:
+From the repository root, install dependencies in the frontend app:
 
 ```bash
 cd frontend
@@ -60,6 +74,8 @@ npm install
 ```
 
 ### Run Locally
+
+Start the Vite dev server from the frontend directory:
 
 ```bash
 cd frontend
@@ -80,15 +96,23 @@ Run these from the `frontend` directory:
 ## Current Features
 
 - Login/Register UI toggle on a single page
-- Route-based navigation between login and dashboard
-- Dashboard cards for attendance, upcoming class, and notices
+- Route-based navigation across six authenticated student pages
+- Shared responsive sidebar layout with active-route highlighting
+- Dashboard cards for attendance, upcoming class, notices, and CGPA
+- Smart noticeboard with category filters, search, and attachment preview modal
+- Attendance analytics with charts and subject-wise shortage/safe-bunk indicators
+- Marks module with IA tab, VTU results tab, and SGPA trend visualization
+- Letter generator with compose, history, save/delete, and print-ready preview
+- Profile management with personal/academic/security sections and completion meter
 - Responsive utility-first styling using Tailwind CSS
 
 ## Known Limitations
 
 - Login currently navigates directly to the dashboard (no credential verification)
 - No persistent user session or logout logic wired to backend
-- Dashboard data is static and not fetched from APIs
+- All module data is static/mock and not fetched from APIs
+- Backend integration markers are comments only (no real service calls yet)
+- No automated tests are configured yet
 
 ## Roadmap
 
@@ -114,4 +138,4 @@ Run these from the `frontend` directory:
 
 ## Notes
 
-The existing `frontend/README.md` is the generated Vite template and can be updated later with module-specific frontend documentation.
+The app is intentionally frontend-only right now. All post-login data and flows are mocked locally until backend integration is added.
