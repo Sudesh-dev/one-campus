@@ -30,33 +30,6 @@ All post-login routes are rendered inside a shared sidebar layout with mobile an
 - Vite 8
 - ESLint 9
 
-## Project Structure
-
-```text
-one-campus/
-├─ README.md
-└─ frontend/
-	├─ package.json
-	├─ index.html
-	├─ vite.config.js
-	├─ public/
-	└─ src/
-		├─ components/
-		│	└─ SidebarLayout.jsx
-		├─ App.jsx
-		├─ App.css
-		├─ index.css
-		├─ main.jsx
-		└─ pages/
-			├─ Login.jsx
-			├─ Dashboard.jsx
-			├─ Notices.jsx
-			├─ Attendance.jsx
-			├─ Marks.jsx
-			├─ Letters.jsx
-			└─ Profile.jsx
-```
-
 ## Getting Started
 
 ### Prerequisites
