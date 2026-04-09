@@ -2,29 +2,36 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
-  const [isLogin, setIsLogin]     = useState(true);
-  const [usn, setUsn]             = useState('');
-  const [password, setPassword]   = useState('');
-  const [email, setEmail]         = useState('');
+  const [role,      setRole]      = useState('student');  // 'student' | 'faculty'
+  const [isLogin,   setIsLogin]   = useState(true);
+  const [usn,       setUsn]       = useState('');
+  const [empId,     setEmpId]     = useState('');
+  const [password,  setPassword]  = useState('');
+  const [email,     setEmail]     = useState('');
   const [isLoading, setIsLoading] = useState(false);
 
   const navigate = useNavigate();
 
   const fillDemoCreds = () => {
-    setUsn('1AP23CS019');
-    setPassword('demo123');
+    if (role === 'student') {
+      setUsn('1AP23CS019');
+      setPassword('demo123');
+    } else {
+      setEmpId('FAC001');
+      setPassword('faculty123');
+    }
     setIsLogin(true);
   };
 
-  // BACKEND: Replace with POST /api/auth/login  { usn, password }
-  // BACKEND: Replace with POST /api/auth/register { usn, email, password }
+  // BACKEND: POST /api/auth/login  { role, usn|empId, password }
+  // Response: { token, role, redirectTo: '/dashboard' | '/faculty/dashboard' }
   const handleAuth = (e) => {
     e.preventDefault();
     setIsLoading(true);
     setTimeout(() => {
       setIsLoading(false);
       if (isLogin) {
-        navigate('/dashboard');
+        navigate(role === 'faculty' ? '/faculty/dashboard' : '/dashboard');
       } else {
         alert('Registration successful! Please log in.');
         setIsLogin(true);
@@ -32,13 +39,26 @@ const Login = () => {
     }, 800);
   };
 
+  const isStudent = role === 'student';
+
+  const featureList = {
+    student: [
+      { icon: '📊', title: 'Smart Attendance',    desc: 'VTU-aware analytics & shortage alerts'      },
+      { icon: '📝', title: 'Marks & Results',     desc: 'IA tracking and SGPA progression'           },
+      { icon: '📄', title: 'Document Generator',  desc: 'Draft and print official letters instantly' },
+    ],
+    faculty: [
+      { icon: '✅', title: 'Mark Attendance',     desc: 'Class-by-class attendance marking'          },
+      { icon: '🎓', title: 'Enter IA Marks',      desc: 'IA-1 & IA-2 entry for all subjects'         },
+      { icon: '📁', title: 'Upload Study Notes',  desc: 'Sem & branch-scoped material upload'        },
+    ],
+  };
+
   return (
     <div className="flex min-h-screen bg-gray-50">
 
-      {/* ── LEFT PANEL: Branding (hidden on mobile) ── */}
+      {/* ── LEFT PANEL: Branding ── */}
       <div className="hidden lg:flex lg:w-1/2 bg-blue-800 flex-col justify-between p-12 relative overflow-hidden">
-
-        {/* Background decorative circles */}
         <div className="absolute -top-16 -right-16 w-64 h-64 bg-blue-700 rounded-full opacity-50" />
         <div className="absolute -bottom-20 -left-10 w-80 h-80 bg-blue-900 rounded-full opacity-40" />
 
@@ -48,11 +68,7 @@ const Login = () => {
         </div>
 
         <div className="relative z-10 space-y-6">
-          {[
-            { icon: '📊', title: 'Smart Attendance',   desc: 'VTU-aware analytics & shortage alerts'   },
-            { icon: '📝', title: 'Marks & Results',    desc: 'IA tracking and SGPA progression'        },
-            { icon: '📄', title: 'Document Generator', desc: 'Draft and print official letters instantly' },
-          ].map(item => (
+          {featureList[role].map(item => (
             <div key={item.title} className="flex items-start gap-4">
               <div className="w-10 h-10 bg-blue-700 rounded-xl flex items-center justify-center text-xl shrink-0">
                 {item.icon}
@@ -80,16 +96,36 @@ const Login = () => {
             <p className="text-gray-500 text-sm mt-1">APS College of Engineering</p>
           </div>
 
+          {/* ── ROLE TOGGLE ── */}
+          <div className="flex bg-gray-100 rounded-2xl p-1.5 mb-6 gap-1">
+            {['student', 'faculty'].map(r => (
+              <button
+                key={r}
+                type="button"
+                onClick={() => { setRole(r); setUsn(''); setEmpId(''); setPassword(''); setEmail(''); }}
+                className={`flex-1 py-2.5 rounded-xl text-sm font-bold transition-all capitalize ${
+                  role === r
+                    ? 'bg-white text-blue-800 shadow-sm'
+                    : 'text-gray-500 hover:text-gray-700'
+                }`}
+              >
+                {r === 'student' ? '🎒 Student' : '👨‍🏫 Faculty'}
+              </button>
+            ))}
+          </div>
+
           <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-8">
 
             <h2 className="text-2xl font-extrabold text-gray-800 mb-1">
               {isLogin ? 'Welcome back 👋' : 'Create account'}
             </h2>
             <p className="text-gray-500 text-sm mb-6">
-              {isLogin ? 'Sign in to access your student portal.' : 'Register with your college USN.'}
+              {isLogin
+                ? `Sign in to your ${isStudent ? 'student' : 'faculty'} portal.`
+                : `Register your ${isStudent ? 'student' : 'faculty'} account.`}
             </p>
 
-            {/* Demo credentials banner */}
+            {/* Demo credentials */}
             <button
               type="button"
               onClick={fillDemoCreds}
@@ -99,37 +135,56 @@ const Login = () => {
               <p className="text-sm text-blue-800 font-bold group-hover:text-blue-900">
                 ⚡ Click to fill demo credentials
               </p>
-              <p className="text-xs text-blue-500 mt-0.5">USN: 1AP23CS019 &nbsp;|&nbsp; Password: demo123</p>
+              <p className="text-xs text-blue-500 mt-0.5">
+                {isStudent
+                  ? 'USN: 1AP23CS019  |  Password: demo123'
+                  : 'Employee ID: FAC001  |  Password: faculty123'}
+              </p>
             </button>
 
             <form className="space-y-4" onSubmit={handleAuth}>
 
+              {/* USN (student) or Employee ID (faculty) */}
               <div>
                 <label className="block text-sm font-bold text-gray-700 mb-1.5">
-                  University Seat Number (USN)
+                  {isStudent ? 'University Seat Number (USN)' : 'Employee ID'}
                 </label>
-                <input
-                  type="text"
-                  value={usn}
-                  onChange={(e) => setUsn(e.target.value.toUpperCase())}
-                  placeholder="e.g. 1AP23CS019"
-                  className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2
-                             focus:ring-blue-500 focus:outline-none font-mono font-bold uppercase
-                             tracking-wider text-gray-800 bg-gray-50 transition"
-                  required
-                />
+                {isStudent ? (
+                  <input
+                    type="text"
+                    value={usn}
+                    onChange={e => setUsn(e.target.value.toUpperCase())}
+                    placeholder="e.g. 1AP23CS019"
+                    className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2
+                               focus:ring-blue-500 focus:outline-none font-mono font-bold uppercase
+                               tracking-wider text-gray-800 bg-gray-50 transition"
+                    required
+                  />
+                ) : (
+                  <input
+                    type="text"
+                    value={empId}
+                    onChange={e => setEmpId(e.target.value.toUpperCase())}
+                    placeholder="e.g. FAC001"
+                    className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2
+                               focus:ring-blue-500 focus:outline-none font-mono font-bold uppercase
+                               tracking-wider text-gray-800 bg-gray-50 transition"
+                    required
+                  />
+                )}
               </div>
 
+              {/* Email (register only) */}
               {!isLogin && (
                 <div>
                   <label className="block text-sm font-bold text-gray-700 mb-1.5">
-                    College Email
+                    {isStudent ? 'College Email' : 'Official Email'}
                   </label>
                   <input
                     type="email"
                     value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    placeholder="student@apsce.edu.in"
+                    onChange={e => setEmail(e.target.value)}
+                    placeholder={isStudent ? 'student@apsce.edu.in' : 'faculty@apsce.edu.in'}
                     className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2
                                focus:ring-blue-500 focus:outline-none bg-gray-50 transition"
                     required
@@ -137,6 +192,7 @@ const Login = () => {
                 </div>
               )}
 
+              {/* Password */}
               <div>
                 <div className="flex justify-between items-center mb-1.5">
                   <label className="block text-sm font-bold text-gray-700">Password</label>
@@ -149,7 +205,7 @@ const Login = () => {
                 <input
                   type="password"
                   value={password}
-                  onChange={(e) => setPassword(e.target.value)}
+                  onChange={e => setPassword(e.target.value)}
                   placeholder="••••••••"
                   className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2
                              focus:ring-blue-500 focus:outline-none bg-gray-50 transition"
