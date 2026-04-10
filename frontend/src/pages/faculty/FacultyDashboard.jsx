@@ -29,7 +29,7 @@ const FacultyDashboard = () => {
   }, []);
 
   // BACKEND: Replace with GET /api/faculty/dashboard-summary
-  const faculty = { name: 'Dr. Priya Sharma', department: 'CSE' };
+  const faculty = { name: 'Prof. Prasad', department: 'CSE' };
 
   // BACKEND: Replace with GET /api/faculty/today-classes
   const todayClasses = [

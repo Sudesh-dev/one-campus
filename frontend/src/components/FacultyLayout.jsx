@@ -92,7 +92,7 @@ const FacultyLayout = () => {
 
   // BACKEND: Replace with data from faculty auth context
   const faculty = {
-    name:       'Dr. Priya Sharma',
+    name:       'Prof. Prasad',
     empId:      'FAC001',
     department: 'CSE',
   };
