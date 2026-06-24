@@ -1,16 +1,48 @@
-# React + Vite
+# One Campus Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This folder contains the React + Vite frontend for One Campus, a student portal prototype focused on attendance, notices, marks, letters, and profile views.
 
-Currently, two official plugins are available:
+## Run This Project
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+### Prerequisites
 
-## React Compiler
+- Node.js 18+
+- npm 9+
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+### Install
 
-## Expanding the ESLint configuration
+```bash
+npm install
+```
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+### Development Server
+
+```bash
+npm run dev
+```
+
+The app will usually be available at `http://localhost:5173`.
+
+### Production Build
+
+```bash
+npm run build
+```
+
+### Preview Build
+
+```bash
+npm run preview
+```
+
+### Lint
+
+```bash
+npm run lint
+```
+
+## Project Notes
+
+- Routes and page data are mocked on the frontend.
+- Shared layout and navigation live in `src/components`.
+- Page-level screens live in `src/pages`.
